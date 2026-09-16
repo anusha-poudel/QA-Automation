@@ -70,13 +70,11 @@ let rejectedIds =[];
 for (const txn of batch){
     const reason = validate(txn);
     if(reason!=="OK"){
-        rejectedCount++;
-        console.log(`${txn.id} REJECTED ${reason}`);
         rejectedIds.push(txn.id);
         continue;
     }
     else{
-        approvedCount++;
+        const approvedCount = batch.filter(txn => validate(txn) === "OK").length;
         route(txn.gateway);
         const fee = feeFor(txn.amountPaisa);
         totalValuePaisa += txn.amountPaisa;
