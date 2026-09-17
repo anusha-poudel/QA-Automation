@@ -9,7 +9,6 @@ let firstName = "Anusha";
 firstName = "Anu";
 
 const lastName = "Poudel";
-
 console.log(firstName, lastName);
 
 console.log(5 == "5");
