@@ -10,10 +10,10 @@ BalancePaisa = (BalancePaisa - TransferAmtPaisa) + CashBackPaisa; //remaining ba
 
 const canSend = (BalancePaisa>=TransferAmtPaisa) && KycVerified && TransferAmtPaisa>0;
 
-console.log(`Merchant : ${MerchantName}\n 
-    KYC : Verified\n 
-    Can Send : ${canSend}\n
-    Sent : ${TransferAmtPaisa/100}\n 
-    Cashback : ${CashBackPaisa/100}\n
-    Balance : ${BalancePaisa/100}\n 
-    Approved: Yes`);
+console.log(`Merchant : ${MerchantName}
+    KYC : ${KycVerified ? "Verified" : "Not Verified"} 
+    Can Send : ${canSend}
+    Sent : ${TransferAmtPaisa/100}
+    Cashback : ${CashBackPaisa/100}
+    Balance : ${BalancePaisa/100} 
+    Approved : ${canSend ? "Yes" : "No"}`);
