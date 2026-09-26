@@ -1,0 +1,76 @@
+//1. Draw the tree for the send money form only. Parent, children, siblings. 
+
+body
+|-header.css-9f2ab1
+|-form#login-form
+|-form#send-form
+    |-input[name="to"]
+    |-input[name="amount"]
+    |-button.btn.btn-primary
+|-table#txn-table
+
+
+
+//2. Write one CSS selector for each of the six targets in the next tab.
+
+1	The mPIN input, scoped to the login form
+    document.querySelector('#login-form #mobile')
+
+2	The amount field in the send money form
+    document.querySelector('#send-form input[name="amount"]')
+
+3	The Send button, which has no id and no test id
+    document.querySelector('#send-form button[disabled]')
+
+4	Every transaction row, but not the header row
+    document.querySelectorAll('.txn').length
+
+5	The name cell of the row that failed, so the text reads Ramesh Thapa
+    document.querySelector('tr:has(td.failed)').textContent
+
+6	Only the statement download links, not the Help link
+    document.querySelectorAll('a[href^="/statement/"]').length
+
+
+
+
+//3,4. Prove every one with document.querySelectorAll('...').length. 
+Mark each selector stable or brittle and write one sentence naming the change that would break it.
+
+1   The mPIN input, scoped to the login form
+    document.querySelectorAll('#login-form #mobile').length - stable
+    -This breaks only if a developer renames the id="mobile" attribute itself.
+
+2   The amount field in the send money form
+    document.querySelectorAll('#send-form input[name="amount"]').length - stable
+    -It breaks if the form's id or the input's name="amount" is changed.
+
+3	The Send button, which has no id and no test id
+    document.querySelectorAll('#send-form button[disabled]').length - brittle
+    -It breaks if the button is no longer disabled at the time of selection.
+    Stable: <button data-testid="send-button" class="btn btn-primary px-4" disabled>
+            document.querySelector('[data-testid="send-button"]')
+
+4	Every transaction row, but not the header row
+    document.querySelectorAll('.txn').length - stable
+    -It breaks if the transaction-row class .txn is renamed or removed.
+
+5	The name cell of the row that failed, so the text reads Ramesh Thapa
+    document.querySelectorAll('tr:has(td.failed)').length - stable
+    -It breaks if the failed cell no longer uses the .failed class or the row structure changes.
+
+6	Only the statement download links, not the Help link
+    document.querySelectorAll('a[href^="/statement/"]').length - stable
+    -It breaks if statement links no longer use URLs beginning with /statement/.
+
+
+
+
+//5. Then answer in one line: run `document.querySelector('#balance').textContent` the instant the page opens, and again five seconds later. 
+Why do the two answers differ, and which one would an automated test have seen?  
+
+They differ because the balance is updated asynchronously after the page loads; 
+the instant check sees the initial value, while the 5-second check sees the updated value, 
+so an automated test without waiting would see the initial value.
+    
+
